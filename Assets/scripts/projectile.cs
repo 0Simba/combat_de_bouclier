@@ -12,14 +12,17 @@ public class Projectile : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
+
     void Update () {
         lastVelocity = rigidbody.velocity;
     }
+
 
     public void MyInit (Vector2 direction) {
         transform.Translate(direction * 2);        // TODO be more safe
         rigidbody.AddForce(direction * force);
     }
+
 
     void OnCollisionEnter2D (Collision2D col) {
         string layerName = LayerMask.LayerToName(col.gameObject.layer);
@@ -30,16 +33,18 @@ public class Projectile : MonoBehaviour {
         else if (layerName != "Default")     Debug.Log("Pas de collision entre les projectiles et le layer : " + layerName);
     }
 
+
     void WallsCollision () {
         pickable = true;
         rigidbody.velocity = Vector2.zero;
     }
 
+
     void ProjectileCollision () {
-        Debug.Log("dans projectile collision");
         pickable = true;
         rigidbody.velocity = Vector2.zero;
     }
+
 
     void PlayersCollision () {
         if (pickable) {
