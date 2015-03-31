@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour {
 
     public  int         force    = 5000;
     public  bool        pickable = false;
-    public  string      typeName  = "spear";
+    public  string      typeName = "spear";
 
     private Rigidbody2D rigidbody;
     private Vector2     lastVelocity;

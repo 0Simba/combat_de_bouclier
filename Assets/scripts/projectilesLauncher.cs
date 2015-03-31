@@ -6,6 +6,9 @@ public class ProjectilesLauncher : MonoBehaviour {
 
     public string     keyName        = "a";
     public GameObject GOspearProjectile;
+    public GameObject GOhelmetProjectile;
+    public GameObject GOplastronProjectile;
+    public GameObject GOshieldProjectile;
 
     private EquipmentController equipmentController;
     private Aim                 aim;
@@ -27,12 +30,19 @@ public class ProjectilesLauncher : MonoBehaviour {
         string objectName = equipmentController.getThrowObjectName();
         if (objectName != null) {
             GameObject projectile;
-            projectile        = Instantiate(GOspearProjectile, transform.position, Quaternion.identity) as GameObject;
+            projectile        = GetInstiateProjectileByName(objectName);
             Projectile script = projectile.GetComponent<Projectile>() as Projectile;
             Debug.Log(aim.direction);
             script.MyInit(aim.direction);
         }
     }
 
+
+    GameObject GetInstiateProjectileByName (string name) {
+        if      (name == "plastron") return Instantiate(GOplastronProjectile, transform.position, Quaternion.identity) as GameObject;
+        else if (name == "helmet")   return Instantiate(GOhelmetProjectile, transform.position, Quaternion.identity)   as GameObject;
+        else if (name == "shield")   return Instantiate(GOshieldProjectile, transform.position, Quaternion.identity)   as GameObject;
+        else                         return Instantiate(GOspearProjectile, transform.position, Quaternion.identity)    as GameObject;
+    }
 
 }
