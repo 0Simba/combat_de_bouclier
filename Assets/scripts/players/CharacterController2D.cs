@@ -31,6 +31,11 @@ public class CharacterController2D : MonoBehaviour
 		public bool above;
 		public bool below;
 		public bool becameGroundedThisFrame;
+		public bool side {
+			get {
+				return left || right;
+			}
+		}
 		
 		public void reset ()
 		{
@@ -42,6 +47,7 @@ public class CharacterController2D : MonoBehaviour
 			return string.Format ("[CharacterCollisionState2D] r: {0}, l: {1}, a: {2}, b: {3}", right, left, above, below);
 		}
 	}
+
 	
 	#endregion
 	
@@ -96,6 +102,10 @@ public class CharacterController2D : MonoBehaviour
 	[NonSerialized]
 	public CharacterCollisionState2D
 		collisionState = new CharacterCollisionState2D ();
+	[HideInInspector]
+	[NonSerialized]
+	public CollisionFlags
+		collisionFlags = CollisionFlags.None;
 	[HideInInspector]
 	[NonSerialized]
 	public Vector3
@@ -217,9 +227,11 @@ public class CharacterController2D : MonoBehaviour
 				if (isGoingRight) {
 					deltaMovement.x -= skinWidth;
 					collisionState.right = true;
+					collisionFlags |= CollisionFlags.Sides;
 				} else {
 					deltaMovement.x += skinWidth;
 					collisionState.left = true;
+					collisionFlags |= CollisionFlags.Sides;
 				}
 				
 				if (onControllerCollidedEvent != null)
@@ -252,15 +264,18 @@ public class CharacterController2D : MonoBehaviour
 				if (isGoingRight) {
 					deltaMovement.x -= skinWidth;
 					collisionState.right = true;
+					collisionFlags |= CollisionFlags.Sides;
 				} else {
 					deltaMovement.x += skinWidth;
 					collisionState.left = true;
+					collisionFlags |= CollisionFlags.Sides;
 				}
 				
 				// smooth y movement when we climb
 				deltaMovement.y = Mathf.Abs (Mathf.Tan (angle * Mathf.Deg2Rad) * deltaMovement.x);
 				
 				collisionState.below = true;
+				collisionFlags |= CollisionFlags.Below;
 			}
 		} else { // too steep. get out of here
 			//Debug.LogWarning( "too steep yo " + angle );
@@ -298,11 +313,13 @@ public class CharacterController2D : MonoBehaviour
 					
 					deltaMovement.y -= skinWidth;
 					collisionState.above = true;
+					collisionFlags |= CollisionFlags.Above;
 					
 				} else {
 					
 					deltaMovement.y += skinWidth;
 					collisionState.below = true;
+					collisionFlags |= CollisionFlags.Below;
 					
 				}
 				
@@ -327,6 +344,7 @@ public class CharacterController2D : MonoBehaviour
 		
 		// clear our state
 		collisionState.reset ();
+		collisionFlags = CollisionFlags.None;
 		
 		var desiredPosition = transform.position + deltaMovement;
 		primeRaycastOrigins (desiredPosition, deltaMovement);
