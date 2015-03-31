@@ -24,7 +24,7 @@ public class Aim : MonoBehaviour {
 
 
     void ApplyRotation () {
-        direction            = new Vector2(DeviceManager.devices[targetDevice].RightStickX, DeviceManager.currentDevice.RightStickY);
+        direction            = new Vector2(DeviceManager.devices[targetDevice].RightStickX, DeviceManager.devices[targetDevice].RightStickY);
         float angle          = Mathf.Atan2(direction.x, direction.y) / Mathf.PI * -180;
         Quaternion rotation  = Quaternion.identity;
         rotation.eulerAngles = new Vector3(0, 0, angle);
