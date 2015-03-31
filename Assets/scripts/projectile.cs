@@ -52,6 +52,7 @@ public class Projectile : MonoBehaviour {
 
     void PlayersCollision () {
         if (pickable) {
+            Destroy(gameObject);
         }
         else {
             rigidbody.AddForce(lastVelocity * -10);         // TODO use var
