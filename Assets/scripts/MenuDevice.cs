@@ -14,9 +14,16 @@ public class MenuDevice : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		for(int i = 0; i < playersUI.Length - 1; i++)
+		for(int i = 0; i < playersUI.Length; i++)
 		{
 			playersOk[i] = playersUI[i].GetComponent<DeviceUI>().isOk;
+		}
+	}
+
+	void StartGame() {
+		for(int i = 0; i < playersOk.Length; i++)
+		{
+
 		}
 	}
 }
