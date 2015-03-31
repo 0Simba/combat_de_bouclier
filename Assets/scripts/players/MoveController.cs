@@ -3,6 +3,7 @@ using System.Collections;
 
 public class MoveController : MonoBehaviour {
 
+	public int   targetDevice = 0;
 	public float decX = 0.1f;
 	public float maxSpeed = 3;
 	public float timeToMaxSpeed = 1;
@@ -56,7 +57,7 @@ public class MoveController : MonoBehaviour {
 
 	void UpdateJump() {
 		_velY -= Time.deltaTime * (_jumping && _velY<0 ? boostedGravity : normalGravity);
-		if (DeviceManager.currentDevice.RightBumper.WasPressed && !_jumping && _grounded) {
+		if (DeviceManager.devices[targetDevice].RightBumper.WasPressed && !_jumping && _grounded) {
 			_velY = jumpInitialVel;
 			_jumping = true;
 			_jumpButtonPressedFor = 0;
@@ -65,10 +66,10 @@ public class MoveController : MonoBehaviour {
 				_jumping = false;
 			}
 		}
-		if (DeviceManager.currentDevice.RightBumper.WasReleased && _jumping && (_velY > jumpFall)) {
+		if (DeviceManager.devices[targetDevice].RightBumper.WasReleased && _jumping && (_velY > jumpFall)) {
 			_velY = jumpFall;
 		}
-		if (DeviceManager.currentDevice.LeftBumper.IsPressed &&
+		if (DeviceManager.devices[targetDevice].LeftBumper.IsPressed &&
 		    _jumping &&
 		    //(_velY > jumpContinuousVel) &&
 		    _jumpButtonPressedFor < maxJumpDuration
@@ -79,7 +80,7 @@ public class MoveController : MonoBehaviour {
 	}
 
 	void moveX(float maxSpeed, float timeToMaxSpeed, float decX) {
-		float dx = DeviceManager.currentDevice.LeftStickX;
+		float dx = DeviceManager.devices[targetDevice].LeftStickX;
 		if (Mathf.Abs (dx * maxSpeed) >= Mathf.Abs (_velX)) {
 			_velX += maxSpeed / timeToMaxSpeed * Time.deltaTime * dx;
 			if (Mathf.Abs (_velX) > maxSpeed) {
