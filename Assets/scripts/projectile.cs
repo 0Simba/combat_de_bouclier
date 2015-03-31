@@ -22,9 +22,10 @@ public class Projectile : MonoBehaviour {
     }
 
 
-    public void MyInit (Vector2 direction) {
+    public void MyInit (Vector2 direction, string name) {
         transform.Translate(direction * 2);        // TODO be more safe
         rigidbody.AddForce(direction * force);
+        typeName = name;
     }
 
 

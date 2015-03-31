@@ -32,8 +32,7 @@ public class ProjectilesLauncher : MonoBehaviour {
             GameObject projectile;
             projectile        = GetInstiateProjectileByName(objectName);
             Projectile script = projectile.GetComponent<Projectile>() as Projectile;
-            Debug.Log(aim.direction);
-            script.MyInit(aim.direction);
+            script.MyInit(aim.direction, objectName);
         }
     }
 
