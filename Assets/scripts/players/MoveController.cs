@@ -3,7 +3,6 @@ using System.Collections;
 
 public class MoveController : MonoBehaviour {
 
-	public int   targetDevice = 0;
 	public float decX = 0.1f;
 	public float maxSpeed = 3;
 	public float timeToMaxSpeed = 1;
@@ -32,17 +31,19 @@ public class MoveController : MonoBehaviour {
 	public float dashSpeed = 20;
 	public float dashDesc = 0.9f;
 	public float dashMinSpeed = 2;
-	private float _curentDashSpeed; 
+	private float _curentDashSpeed;
 	private bool _dashing = false;
 	private Vector2 _dashDirection = Vector2.zero;
 
 	private CharacterController2D _characterController;
-	// Use this for initialization
+	private MainPlayer            mainPlayer;
+
 	void Start () {
+		mainPlayer = GetComponent<MainPlayer>();
 		_characterController = GetComponent<CharacterController2D> ();
 	}
 
-	// Update is called once per frame
+
 	void Update () {
 		if (!_dashing) {
 			if (_grounded) {
@@ -50,7 +51,7 @@ public class MoveController : MonoBehaviour {
 			} else {
 				moveX (maxSpeed, timeToMaxSpeed, decXInAir);
 			}
-			
+
 			UpdateJump ();
 			Dash ();
 		} else {
@@ -72,7 +73,7 @@ public class MoveController : MonoBehaviour {
 
 	void UpdateJump() {
 		_velY -= Time.deltaTime * (_jumping && _velY<0 ? boostedGravity : normalGravity);
-		InControl.InputDevice gamepad = DeviceManager.devices [targetDevice];
+		InControl.InputDevice gamepad = DeviceManager.devices [mainPlayer.deviceIndex];
 		if (gamepad.RightBumper.WasPressed && !_jumping) {
 			if(_grounded) {
 				_velY = jumpInitialVel;
@@ -109,7 +110,7 @@ public class MoveController : MonoBehaviour {
 	}
 
 	void Dash() {
-		InControl.InputDevice gamepad = DeviceManager.devices [targetDevice];
+		InControl.InputDevice gamepad = DeviceManager.devices [mainPlayer.deviceIndex];
 		if (gamepad.LeftTrigger.WasPressed) {
 			_dashDirection = new Vector2(gamepad.LeftStickX,gamepad.LeftStickY);
 			_curentDashSpeed = dashSpeed;
@@ -131,7 +132,7 @@ public class MoveController : MonoBehaviour {
 	}
 
 	void moveX(float maxSpeed, float timeToMaxSpeed, float decX) {
-		float dx = DeviceManager.devices[targetDevice].LeftStickX;
+		float dx = DeviceManager.devices[mainPlayer.deviceIndex].LeftStickX;
 		if (Mathf.Abs (dx * maxSpeed) >= Mathf.Abs (_velX)) {
 			_velX += maxSpeed / timeToMaxSpeed * Time.deltaTime * dx;
 			if (Mathf.Abs (_velX) > maxSpeed) {
