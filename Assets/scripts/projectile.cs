@@ -4,9 +4,13 @@ using System.Collections;
 public class Projectile : MonoBehaviour {
 
     public  int         force    = 5000;
-    private bool        pickable = false;
+    public  bool        pickable = false;
+    public  string      typeName  = "spear";
+
     private Rigidbody2D rigidbody;
     private Vector2     lastVelocity;
+
+
 
     void Awake () {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -48,10 +52,8 @@ public class Projectile : MonoBehaviour {
 
     void PlayersCollision () {
         if (pickable) {
-            Debug.Log("Coder le ramassage de projectile");
         }
         else {
-            Debug.Log("Coder la perte de vie du joueur");
             rigidbody.AddForce(lastVelocity * -10);         // TODO use var
             pickable = true;
         }

@@ -6,7 +6,6 @@ public class ProjectilesLauncher : MonoBehaviour {
 
     public Vector2    aim     = Vector2.up;
     public string     keyName = "a";
-
     public GameObject GOspearProjectile;
 
     private EquipmentController equipmentController;
@@ -15,11 +14,13 @@ public class ProjectilesLauncher : MonoBehaviour {
         equipmentController = transform.GetComponent<EquipmentController>();
     }
 
+
 	void Update () {
         if (DeviceManager.currentDevice.LeftBumper.WasPressed && aim != Vector2.zero) {
             ThrowEquipmment();
         }
  	}
+
 
     void ThrowEquipmment () {
         string objectName = equipmentController.getThrowObjectName();
@@ -31,4 +32,6 @@ public class ProjectilesLauncher : MonoBehaviour {
             script.MyInit(aim);
         }
     }
+
+
 }
