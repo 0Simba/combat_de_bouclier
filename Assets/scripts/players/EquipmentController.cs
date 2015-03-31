@@ -5,6 +5,9 @@ using System;
 public class EquipmentController : MonoBehaviour {
 
     public GameObject spearRef;
+    public GameObject shieldRef;
+    public GameObject helmetRef;
+    public GameObject plastronRef;
 
     public string[] itemsName   = new string[4] {"spear", "shield", "helmet", "plastron"};
     public bool[]   itemsWeared = new bool[4]   {true   , false   , false   , false};
@@ -25,12 +28,18 @@ public class EquipmentController : MonoBehaviour {
 
 
     public void ShowItemByName (string name) {
-        if (name == "spear") spearRef.GetComponent<Renderer>().enabled = true;
+        if      (name == "spear")    spearRef.GetComponent<Renderer>().enabled    = true;
+        else if (name == "helmet")   helmetRef.GetComponent<Renderer>().enabled   = true;
+        else if (name == "plastron") plastronRef.GetComponent<Renderer>().enabled = true;
+        else if (name == "shield")   shieldRef.GetComponent<Renderer>().enabled   = true;
     }
 
 
     void HideItemsByName (string name) {
-        if (name == "spear") spearRef.GetComponent<Renderer>().enabled = false;
+        if      (name == "spear")    spearRef.GetComponent<Renderer>().enabled    = false;
+        else if (name == "helmet")   helmetRef.GetComponent<Renderer>().enabled   = false;
+        else if (name == "plastron") plastronRef.GetComponent<Renderer>().enabled = false;
+        else if (name == "shield")   shieldRef.GetComponent<Renderer>().enabled   = false;
     }
 
 
