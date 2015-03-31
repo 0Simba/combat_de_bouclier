@@ -8,6 +8,8 @@ public class EquipmentController : MonoBehaviour {
 
     public string[] itemsName   = new string[4] {"spear", "shield", "helmet", "plastron"};
     public bool[]   itemsWeared = new bool[4]   {true   , false   , false   , false};
+    public int      lifes       = 2;
+    public int      damageValue = 3;
 
     public string getThrowObjectName () {
         for (int i = 0; i < itemsWeared.Length; i++) {
@@ -43,13 +45,37 @@ public class EquipmentController : MonoBehaviour {
         Projectile projectileScript = col.transform.GetComponent<Projectile>();
 
         if (projectileScript.pickable) {
-            int index = Array.IndexOf(itemsName, projectileScript.typeName);
-            itemsWeared[index] = true;
-            ShowItemByName(projectileScript.typeName);
+            PickItem(projectileScript.typeName);
         }
         else {
-
+            Damaged();
         }
     }
 
+
+    void PickItem (string name) {
+        int index = Array.IndexOf(itemsName, name);
+        itemsWeared[index] = true;
+        ShowItemByName(name);
+    }
+
+
+    void Damaged () {
+        int damageCount = damageValue;
+        for (int i = itemsWeared.Length - 1; i >= 0; i--) {
+            if (itemsWeared[i]) {
+
+                itemsWeared[i] = false;
+                damageCount--;
+                HideItemsByName(itemsName[i]);
+                // TODO coder layer perte des items
+                if (damageCount == 0) break;
+
+            }
+        }
+
+        lifes -= damageCount;
+
+        // Coder la mort
+    }
 }
