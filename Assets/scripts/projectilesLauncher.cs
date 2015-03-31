@@ -4,7 +4,8 @@ using System.Collections;
 public class ProjectilesLauncher : MonoBehaviour {
 
 
-    public string     keyName = "a";
+    public string     keyName        = "a";
+    public float      minVectorValue = 0.2f;
     public GameObject GOspearProjectile;
 
     private EquipmentController equipmentController;
@@ -18,14 +19,17 @@ public class ProjectilesLauncher : MonoBehaviour {
 
 	void Update () {
         if (DeviceManager.currentDevice.LeftBumper.WasPressed) {
-            ThrowEquipmment();
+            float sumXY = Mathf.Abs(aim.direction.x) + Mathf.Abs(aim.direction.y);
+
+            if (sumXY >= minVectorValue) {
+                ThrowEquipmment();
+            }
         }
  	}
 
 
     void ThrowEquipmment () {
         string objectName = equipmentController.getThrowObjectName();
-
         if (objectName != null) {
             GameObject projectile;
             projectile        = Instantiate(GOspearProjectile, transform.position, Quaternion.identity) as GameObject;

@@ -11,7 +11,6 @@ public class Aim : MonoBehaviour {
 
 
 	void Update () {
-        //direction = new Vector2(DStieviceManager.currentDevice.RightckX, DeviceManager.currentDevice.RightStickY);
-        //Debug.Log(DeviceManager.currentDevice.LeftStickX);
+        direction = new Vector2(DeviceManager.currentDevice.RightStickX, DeviceManager.currentDevice.RightStickY);
     }
 }
