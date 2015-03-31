@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class MoveController : MonoBehaviour {
-	
+
 	public float decX = 0.1f;
 	public float maxSpeed = 3;
 	public float timeToMaxSpeed = 1;
@@ -10,7 +10,7 @@ public class MoveController : MonoBehaviour {
 	public float decXInAir = 0.1f;
 	public float maxSpeedInAir = 3;
 	public float timeToMaxSpeedInAir = 02;
-	
+
 	private float _velX = 0;
 
 	public float normalGravity = 10;
@@ -32,7 +32,7 @@ public class MoveController : MonoBehaviour {
 	void Start () {
 		_characterController = GetComponent<CharacterController2D> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (_grounded) {
@@ -68,9 +68,9 @@ public class MoveController : MonoBehaviour {
 		if (DeviceManager.currentDevice.RightBumper.WasReleased && _jumping && (_velY > jumpFall)) {
 			_velY = jumpFall;
 		}
-		if (DeviceManager.currentDevice.LeftBumper.IsPressed && 
-		    _jumping && 
-		    //(_velY > jumpContinuousVel) && 
+		if (DeviceManager.currentDevice.LeftBumper.IsPressed &&
+		    _jumping &&
+		    //(_velY > jumpContinuousVel) &&
 		    _jumpButtonPressedFor < maxJumpDuration
 		) {
 			_velY += jumpContinuousVel * Time.deltaTime;
