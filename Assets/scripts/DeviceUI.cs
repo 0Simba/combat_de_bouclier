@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class DeviceUI : MonoBehaviour {
 
 	public int playerSlot;
-	private bool isOk;
+	[HideInInspector]
+	public bool isOk;
 
 	void Update()
 	{
