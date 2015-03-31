@@ -4,19 +4,20 @@ using System.Collections;
 public class ProjectilesLauncher : MonoBehaviour {
 
 
-    public Vector2    aim     = Vector2.up;
     public string     keyName = "a";
     public GameObject GOspearProjectile;
 
     private EquipmentController equipmentController;
+    private Aim                 aim;
 
 	void Start () {
         equipmentController = transform.GetComponent<EquipmentController>();
+        aim                 = transform.GetComponent<Aim>();
     }
 
 
 	void Update () {
-        if (DeviceManager.currentDevice.LeftBumper.WasPressed && aim != Vector2.zero) {
+        if (DeviceManager.currentDevice.LeftBumper.WasPressed) {
             ThrowEquipmment();
         }
  	}
@@ -29,7 +30,8 @@ public class ProjectilesLauncher : MonoBehaviour {
             GameObject projectile;
             projectile        = Instantiate(GOspearProjectile, transform.position, Quaternion.identity) as GameObject;
             Projectile script = projectile.GetComponent<Projectile>() as Projectile;
-            script.MyInit(aim);
+            Debug.Log(aim.direction);
+            script.MyInit(aim.direction);
         }
     }
 
