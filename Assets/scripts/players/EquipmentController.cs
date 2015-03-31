@@ -8,7 +8,7 @@ public class EquipmentController : MonoBehaviour {
 
     public string[] itemsName   = new string[4] {"spear", "shield", "helmet", "plastron"};
     public bool[]   itemsWeared = new bool[4]   {true   , false   , false   , false};
-    public int      lifes       = 2;
+    public int      lifes       = 3;
     public int      damageValue = 3;
 
     public string getThrowObjectName () {
@@ -76,6 +76,8 @@ public class EquipmentController : MonoBehaviour {
 
         lifes -= damageCount;
 
-        // Coder la mort
+        if (lifes <= 0) {
+			gameObject.SetActive(false);
+		}
     }
 }

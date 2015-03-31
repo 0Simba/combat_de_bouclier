@@ -19,5 +19,12 @@ public class HudController : MonoBehaviour {
 				child.SetActive(status);
 			}
 		}
+		for (int i = 0; i < 3; i++) {
+			GameObject child = transform.GetChild(i+4).gameObject;
+			bool status = playerEquipement.lifes > i;
+			if (child.activeSelf != status) {
+				child.SetActive(status);
+			}
+		}
 	}
 }
