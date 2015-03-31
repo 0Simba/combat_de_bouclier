@@ -13,7 +13,7 @@ public class ProjectilesLauncher : MonoBehaviour {
 	}
 
 	void Update () {
-        if (Input.GetKeyDown(keyName) && GOprojectile && aim != Vector2.zero) {
+        if (DeviceManager.currentDevice.LeftBumper.WasPressed && GOprojectile && aim != Vector2.zero) {
             GameObject projectile;
             projectile = Instantiate(GOprojectile, transform.position, Quaternion.identity) as GameObject;
 
