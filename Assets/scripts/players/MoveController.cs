@@ -6,6 +6,10 @@ public class MoveController : MonoBehaviour {
 	public float decX = 0.1f;
 	public float maxSpeed = 3;
 	public float timeToMaxSpeed = 1;
+
+	public float decXInAir = 0.1f;
+	public float maxSpeedInAir = 3;
+	public float timeToMaxSpeedInAir = 02;
 	
 	private float _velX = 0;
 
@@ -31,15 +35,12 @@ public class MoveController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float dx = Input.GetAxis ("Horizontal");
-		if (Mathf.Abs (dx * maxSpeed) >= Mathf.Abs (_velX)) {
-			_velX += maxSpeed / timeToMaxSpeed * Time.deltaTime * dx;
-			if (Mathf.Abs (_velX) > maxSpeed) {
-				_velX = maxSpeed * Mathf.Sign(_velX);
-			}
+		if (_grounded) {
+			moveX(maxSpeed, timeToMaxSpeed, decX);
 		} else {
-			_velX *= decX;
+			moveX(maxSpeed, timeToMaxSpeed, decXInAir);
 		}
+
 		UpdateJump ();
 		_characterController.move (((_velX * Vector3.right) + (_velY * Vector3.up)) * Time.deltaTime);
 		if (_characterController.collisionState.below) {
@@ -47,6 +48,9 @@ public class MoveController : MonoBehaviour {
 			_grounded = true;
 		} else {
 			_grounded = false;
+		}
+		if (_characterController.collisionState.above) {
+			_velY = 0;
 		}
 	}
 
@@ -72,7 +76,17 @@ public class MoveController : MonoBehaviour {
 			_velY += jumpContinuousVel * Time.deltaTime;
 			_jumpButtonPressedFor += Time.deltaTime;
 		}
+	}
 
-
+	void moveX(float maxSpeed, float timeToMaxSpeed, float decX) {
+		float dx = Input.GetAxis ("Horizontal");
+		if (Mathf.Abs (dx * maxSpeed) >= Mathf.Abs (_velX)) {
+			_velX += maxSpeed / timeToMaxSpeed * Time.deltaTime * dx;
+			if (Mathf.Abs (_velX) > maxSpeed) {
+				_velX = maxSpeed * Mathf.Sign(_velX);
+			}
+		} else {
+			_velX *= decX;
+		}
 	}
 }
