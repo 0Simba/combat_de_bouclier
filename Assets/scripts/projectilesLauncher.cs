@@ -6,22 +6,26 @@ public class ProjectilesLauncher : MonoBehaviour {
 
     public Vector2    aim     = Vector2.up;
     public string     keyName = "a";
-    public GameObject GOprojectile;
+
+    public GameObject GOspearProjectile;
+
+    private EquipmentController equipmentController;
 
 	void Start () {
-
-	}
+        equipmentController = transform.GetComponent<EquipmentController>();
+        Debug.Log(equipmentController);
+    }
 
 	void Update () {
-        if (DeviceManager.currentDevice.LeftBumper.WasPressed && GOprojectile && aim != Vector2.zero) {
-            GameObject projectile;
-            projectile = Instantiate(GOprojectile, transform.position, Quaternion.identity) as GameObject;
-
-            if (projectile) {
-                Projectile script = projectile.GetComponent<Projectile>() as Projectile;
-                script.MyInit(aim);
-            } else {
-            }
+        if (DeviceManager.currentDevice.LeftBumper.WasPressed && aim != Vector2.zero) {
+            throwEquipmment();
         }
  	}
+
+    void throwEquipmment () {
+        GameObject projectile;
+        projectile = Instantiate(GOspearProjectile, transform.position, Quaternion.identity) as GameObject;
+        Projectile script = projectile.GetComponent<Projectile>() as Projectile;
+        script.MyInit(aim);
+    }
 }
