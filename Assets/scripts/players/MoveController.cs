@@ -16,6 +16,7 @@ public class MoveController : MonoBehaviour {
 	public float normalGravity = 10;
 	public float boostedGravity = 20;
 
+	public float boostXWallJump = 10;
 
 	public float jumpInitialVel  = 20;
 	public float jumpContinuousVel = 5;
@@ -56,15 +57,29 @@ public class MoveController : MonoBehaviour {
 
 	void UpdateJump() {
 		_velY -= Time.deltaTime * (_jumping && _velY<0 ? boostedGravity : normalGravity);
-		if (DeviceManager.currentDevice.RightBumper.WasPressed && !_jumping && _grounded) {
-			_velY = jumpInitialVel;
-			_jumping = true;
-			_jumpButtonPressedFor = 0;
+		if (DeviceManager.currentDevice.RightBumper.WasPressed && !_jumping) {
+			if(_grounded) {
+				_velY = jumpInitialVel;
+				_jumping = true;
+				_jumpButtonPressedFor = 0;
+			} else if (_characterController.collisionState.left && DeviceManager.currentDevice.LeftStickX<0) {
+				_velX += boostXWallJump;
+				_velY = jumpInitialVel;
+				_jumping = true;
+				_jumpButtonPressedFor = 0;
+			} else if (_characterController.collisionState.right && DeviceManager.currentDevice.LeftStickX>0) {
+				_velX -= boostXWallJump;
+				_velY = jumpInitialVel;
+				_jumping = true;
+				_jumpButtonPressedFor = 0;
+			}
+
 		} else {
-			if (_grounded) {
+			if (_grounded || _characterController.collisionState.side) {
 				_jumping = false;
 			}
 		}
+
 		if (DeviceManager.currentDevice.RightBumper.WasReleased && _jumping && (_velY > jumpFall)) {
 			_velY = jumpFall;
 		}
