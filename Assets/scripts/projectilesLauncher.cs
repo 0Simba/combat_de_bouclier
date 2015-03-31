@@ -13,19 +13,22 @@ public class ProjectilesLauncher : MonoBehaviour {
 
 	void Start () {
         equipmentController = transform.GetComponent<EquipmentController>();
-        Debug.Log(equipmentController);
     }
 
 	void Update () {
         if (DeviceManager.currentDevice.LeftBumper.WasPressed && aim != Vector2.zero) {
-            throwEquipmment();
+            ThrowEquipmment();
         }
  	}
 
-    void throwEquipmment () {
-        GameObject projectile;
-        projectile = Instantiate(GOspearProjectile, transform.position, Quaternion.identity) as GameObject;
-        Projectile script = projectile.GetComponent<Projectile>() as Projectile;
-        script.MyInit(aim);
+    void ThrowEquipmment () {
+        string objectName = equipmentController.getThrowObjectName();
+
+        if (objectName != null) {
+            GameObject projectile;
+            projectile        = Instantiate(GOspearProjectile, transform.position, Quaternion.identity) as GameObject;
+            Projectile script = projectile.GetComponent<Projectile>() as Projectile;
+            script.MyInit(aim);
+        }
     }
 }
