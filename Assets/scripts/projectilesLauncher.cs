@@ -14,19 +14,21 @@ public class ProjectilesLauncher : MonoBehaviour {
     private Aim                 aim;
 
     private MainPlayer mainPlayer;
-	private TriggerTool _shootTrigger;
+    private Mapping _gamepad;
 
 	void Start () {
-        mainPlayer          = GetComponent<MainPlayer>();
+        mainPlayer = GetComponent<MainPlayer>();
+        _gamepad = GetComponent<Mapping>();
         equipmentController = transform.GetComponent<EquipmentController>();
         aim                 = transform.GetComponent<Aim>();
-		_shootTrigger = new TriggerTool();
     }
 
 
 	void Update () {
-		_shootTrigger.Update (DeviceManager.devices [mainPlayer.deviceIndex].LeftTrigger);
-		if (_shootTrigger.WasPressed && aim.isIt) {
+        Debug.Log("--"+ _gamepad.shoot.WasPressed);
+        if (_gamepad.shoot.WasPressed && aim.isIt)
+        {
+            Debug.Log("heheheh");
             ThrowEquipmment();
         }
  	}

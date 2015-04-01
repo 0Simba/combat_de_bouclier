@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace InControl
 {
-	public class InputControl
+	public class InputControl 
 	{
 		public static readonly InputControl Null = new InputControl( "NullInputControl" );
 

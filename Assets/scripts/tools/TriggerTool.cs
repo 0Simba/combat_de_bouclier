@@ -2,15 +2,8 @@
 using System.Collections;
 using InControl;
 
-public class TriggerTool  {
+public class TriggerTool : IInput {
 
-	public bool IsPressed = false;
-	public bool WasPressed = false;
-	public bool WasReleased = false;
-	public bool HasChanged = false;
-
-	public TriggerTool() {
-	}
 
 	public void Update(InputControl _trigger) {
 		if (IsPressed) {
