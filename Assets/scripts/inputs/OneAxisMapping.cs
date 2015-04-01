@@ -3,13 +3,17 @@ using System.Collections;
 
 public class OneAxisMapping : Mapping {
 
+    private ProjectilesLauncher projectileLauncher;
+
     void Start()
     {
         shoot = new ButtonInput();
         jump = new ButtonInput();
         dash = new ButtonInput();
+        projectileLauncher = GetComponent<ProjectilesLauncher>();
+        Debug.Log(projectileLauncher);
     }
-	
+
 	// Update is called once per frame
 	void Update () {
         ButtonInput _s = shoot as ButtonInput;
@@ -20,6 +24,10 @@ public class OneAxisMapping : Mapping {
         _d.Update(DeviceManager.devices[deviceID].Action2);
         moveAxis = DeviceManager.devices[deviceID].LeftStick;
         aimAxis = DeviceManager.devices[deviceID].LeftStick;
-        Debug.Log(shoot.WasPressed);
+
+
+        if (shoot.WasPressed) {
+            projectileLauncher.ThrowEquipmment();
+        }
 	}
 }

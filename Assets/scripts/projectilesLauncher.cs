@@ -25,16 +25,16 @@ public class ProjectilesLauncher : MonoBehaviour {
 
 
 	void Update () {
-        Debug.Log("--"+ _gamepad.shoot.WasPressed);
+/*        Debug.Log("--"+ _gamepad.shoot.WasPressed);
         if (_gamepad.shoot.WasPressed && aim.isIt)
         {
             Debug.Log("heheheh");
             ThrowEquipmment();
         }
- 	}
+ */	}
 
 
-    void ThrowEquipmment () {
+    public void ThrowEquipmment () {
         string objectName = equipmentController.getThrowObjectName();
         if (objectName != null) {
             GameObject projectile;
