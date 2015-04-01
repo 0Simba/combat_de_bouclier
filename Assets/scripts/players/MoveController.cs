@@ -11,7 +11,7 @@ public class MoveController : MonoBehaviour {
 	public float maxSpeedInAir = 3;
 	public float timeToMaxSpeedInAir = 02;
 
-	private float _velX = 0;
+	private float _velX = 0;				// celle la
 
 	public float normalGravity = 10;
 	public float boostedGravity = 20;
