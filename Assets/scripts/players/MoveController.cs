@@ -11,7 +11,7 @@ public class MoveController : MonoBehaviour {
 	public float maxSpeedInAir = 3;
 	public float timeToMaxSpeedInAir = 02;
 
-	private float _velX = 0;				// celle la
+	private float _velX = 0;
 
 	public float normalGravity = 10;
 	public float boostedGravity = 20;
@@ -75,6 +75,17 @@ public class MoveController : MonoBehaviour {
 			_velY = 0;
 		}
 
+		SetDirection();
+	}
+
+	void SetDirection () {
+		float scale = transform.localScale.y;
+		if (_velX < 0) {
+			transform.localScale = new Vector3(-scale, scale, scale);
+		}
+		else {
+			transform.localScale = new Vector3(scale, scale, scale);
+		}
 	}
 
 	void UpdateJump() {
