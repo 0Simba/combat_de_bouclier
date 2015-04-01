@@ -99,6 +99,7 @@ public class MoveController : MonoBehaviour {
         //Debug.Log(_gamepad.jump.IsPressed);
         if (_gamepad.jump.WasPressed && !_jumping)
         {
+        	Sounds.Play("jump");
 			if(_grounded) {
 				_velY = jumpInitialVel;
 				_jumping = true;
@@ -143,6 +144,7 @@ public class MoveController : MonoBehaviour {
 	void Dash() {
         if (_gamepad.dash.WasPressed && _dashed < maxDash)
         {
+        	Sounds.Play("dash");
             _dashDirection = _gamepad.moveAxis;
 			_curentDashSpeed = dashSpeed;
 			_jumping = false;
