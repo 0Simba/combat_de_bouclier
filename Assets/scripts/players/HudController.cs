@@ -6,9 +6,9 @@ public class HudController : MonoBehaviour {
 	public EquipmentController playerEquipement;
 	// Use this for initialization
 	void Start () {
-	
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		//This should'nt be done every frame but i'll do it anyway. Optimise here later;
