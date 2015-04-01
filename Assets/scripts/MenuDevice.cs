@@ -11,7 +11,8 @@ public class MenuDevice : MonoBehaviour {
 	private bool[] playersOk;
 	public Image startImage;
 	private bool readyToStart;
-	//public int[] testData;
+	[HideInInspector]
+	public int[] testData;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +22,8 @@ public class MenuDevice : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		testData = GameDatas.playersInputIndex;
+
 		for(int i = 0; i < playersUI.Length; i++)
 		{
 			playersOk[i] = playersUI[i].GetComponent<DeviceUI>().isOk;
@@ -46,8 +49,6 @@ public class MenuDevice : MonoBehaviour {
 		{
 			startImage.transform.gameObject.SetActive(false);
 		}
-
-		//testData = GameDatas.playersInputIndex;
 	}
 
 	void StartGame() {
@@ -55,8 +56,8 @@ public class MenuDevice : MonoBehaviour {
 		{
 			if ((playersOk[i] == true)&&(InputManager.Devices[i].MenuWasPressed))
 			{
-				//Debug.Log("start!");
 				WriteGameDatas();
+				Debug.Log(testData[0] + " " + testData[1] + " " + testData[2] + " " + testData[3]);
 				LoadScene();
 			}
 		}
