@@ -17,6 +17,10 @@ public class EquipmentController : MonoBehaviour {
     private MainPlayer mainPlayer;
 
 
+    void Start () {
+        mainPlayer = GetComponent<MainPlayer>();
+    }
+
 
     public string getThrowObjectName () {
         for (int i = 0; i < itemsWeared.Length; i++) {
@@ -64,7 +68,7 @@ public class EquipmentController : MonoBehaviour {
             Projectile projectile = col.transform.GetComponent<Projectile>();
             int launcherIndex     = projectile.launcherIndex;
 
-            if (launcherIndex == mainPlayer.playerIndex) Damaged();
+            if (launcherIndex != mainPlayer.playerIndex) Damaged();
         }
     }
 
@@ -77,6 +81,7 @@ public class EquipmentController : MonoBehaviour {
 
 
     void Damaged () {
+        Debug.Log("damaged");
         int damageCount = damageValue;
         for (int i = itemsWeared.Length - 1; i >= 0; i--) {
             if (itemsWeared[i]) {
