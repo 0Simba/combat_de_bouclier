@@ -65,7 +65,7 @@ public class EquipmentController : MonoBehaviour {
         Projectile projectile = col.transform.GetComponent<Projectile>();
         int launcherIndex     = projectile.launcherIndex;
 
-        if (launcherIndex != mainPlayer.playerIndex) Damaged();
+        if (launcherIndex != mainPlayer.playerIndex) Damaged(launcherIndex);
     }
 
 
@@ -79,7 +79,7 @@ public class EquipmentController : MonoBehaviour {
     }
 
 
-    void Damaged () {
+    void Damaged (int launcherIndex) {
         int damageCount = damageValue;
         for (int i = 0; i < itemsWeared.Length && damageCount > 0; i++) {
             if (itemsWeared[i]) {
@@ -95,6 +95,7 @@ public class EquipmentController : MonoBehaviour {
 
         if (lifes <= 0) {
             respawn.SetDie();
+			MainGame.playersScores[launcherIndex] += 1;
 		}
     }
 

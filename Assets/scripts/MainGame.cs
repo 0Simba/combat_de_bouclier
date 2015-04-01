@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class MainGame : MonoBehaviour {
 
     static public int[] playersScores;
-    public int[] _playersScores;
+	[HideInInspector]
+	public int[] _playersScores;
+	public int scoreToWin;
 
     static public int respawnDuration = 3;
     public int _respawnDuration;
@@ -17,6 +19,7 @@ public class MainGame : MonoBehaviour {
 	public HudController[] playersGUI;
 
     void Start () {
+		_playersScores = new int[4];
         playersScores   = _playersScores;
         respawnDuration = _respawnDuration;
         respawnPoint    = _respawnPoint;
@@ -29,4 +32,19 @@ public class MainGame : MonoBehaviour {
 			}
 		}
     }
+
+	void Update() {
+		for(int i = 0; i < playersScores.Length; i++)
+		{
+			if (playersScores[i] >= scoreToWin)
+			{
+				WinGame();
+			}
+		}
+	}
+
+	public void WinGame()
+	{
+		Debug.Log ("Fini");
+	}
 }
