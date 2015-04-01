@@ -41,6 +41,8 @@ public class ProjectilesLauncher : MonoBehaviour {
             projectile        = GetInstiateProjectileByName(objectName);
             Projectile script = projectile.GetComponent<Projectile>() as Projectile;
             script.MyInit(aim.direction, objectName, mainPlayer.playerIndex);
+
+            Sounds.Play("throw");
         }
     }
 

@@ -66,8 +66,6 @@ public class EquipmentController : MonoBehaviour {
     void OnCollisionEnter2D (Collision2D col) {
         string layerName = LayerMask.LayerToName(col.gameObject.layer);
 
-        Debug.Log(layerName); //remove
-
         if      (layerName == "Projectiles")  ProjectileCollision(col);
         else if (layerName == "Collectibles") PickItem(col);
     }
@@ -88,6 +86,8 @@ public class EquipmentController : MonoBehaviour {
         int index = Array.IndexOf(itemsName, name);
         itemsWeared[index] = true;
         ShowItemByName(name);
+
+        Sounds.Play("pick");
     }
 
 
@@ -108,7 +108,11 @@ public class EquipmentController : MonoBehaviour {
         if (lifes <= 0) {
             respawn.SetDie();
 			MainGame.playersScores[launcherIndex] += 1;
+            Sounds.Play("kill");
 		}
+        else {
+            Sounds.Play("hit");
+        }
     }
 
 
