@@ -8,9 +8,11 @@ public class EquipmentController : MonoBehaviour {
     public GameObject shieldRef;
     public GameObject helmetRef;
     public GameObject plastronRef;
+    public GameObject legRef;
+    public GameObject penisRef;
 
-    public string[] itemsName   = new string[4] {"spear", "shield", "helmet", "plastron"};
-    public bool[]   itemsWeared = new bool[4]   {true   , false   , false   , false};
+    private string[] itemsName   = new string[4] {"shield", "helmet", "plastron", "leg"};
+    public bool[]   itemsWeared = new bool[4]   {true    , true    , true      , true};
     public int      lifes       = 3;
     public int      damageValue = 3;
 
@@ -21,6 +23,8 @@ public class EquipmentController : MonoBehaviour {
     void Start () {
         mainPlayer = GetComponent<MainPlayer>();
         respawn    = GetComponent<Respawn>();
+
+        penisRef.GetComponent<Renderer>().enabled = false;
     }
 
 
@@ -29,6 +33,7 @@ public class EquipmentController : MonoBehaviour {
             if (itemsWeared[i]) {
                 itemsWeared[i] = false;
                 HideItemsByName(itemsName[i]);
+                Debug.Log(itemsName[i]);
                 return itemsName[i];
             }
         }
@@ -38,18 +43,24 @@ public class EquipmentController : MonoBehaviour {
 
 
     public void ShowItemByName (string name) {
-        if      (name == "spear")    spearRef.GetComponent<Renderer>().enabled    = true;
-        else if (name == "helmet")   helmetRef.GetComponent<Renderer>().enabled   = true;
+        if      (name == "helmet")   helmetRef.GetComponent<Renderer>().enabled   = true;
         else if (name == "plastron") plastronRef.GetComponent<Renderer>().enabled = true;
         else if (name == "shield")   shieldRef.GetComponent<Renderer>().enabled   = true;
+        else if (name == "leg") {
+            legRef.GetComponent<Renderer>().enabled   = true;
+            penisRef.GetComponent<Renderer>().enabled = false;
+        }
     }
 
 
     void HideItemsByName (string name) {
-        if      (name == "spear")    spearRef.GetComponent<Renderer>().enabled    = false;
-        else if (name == "helmet")   helmetRef.GetComponent<Renderer>().enabled   = false;
+        if      (name == "helmet")   helmetRef.GetComponent<Renderer>().enabled   = false;
         else if (name == "plastron") plastronRef.GetComponent<Renderer>().enabled = false;
         else if (name == "shield")   shieldRef.GetComponent<Renderer>().enabled   = false;
+        else if (name == "leg") {
+            legRef.GetComponent<Renderer>().enabled   = false;
+            penisRef.GetComponent<Renderer>().enabled = true;
+        }
     }
 
 

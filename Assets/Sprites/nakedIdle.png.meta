@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: babba974f55fa6147a6b86d76d53ec64
-timeCreated: 1427904824
+guid: 350760a762e95a94eb9e411209565796
+timeCreated: 1427899839
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: redPlastronIdle_0
-    21300002: redPlastronIdle_1
-    21300004: redPlastronIdle_2
-    21300006: redPlastronIdle_3
+    21300000: nakedIdle_0
+    21300002: nakedIdle_1
+    21300004: nakedIdle_2
+    21300006: nakedIdle_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -53,7 +53,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: redPlastronIdle_0
+    - name: nakedIdle_0
       rect:
         serializedVersion: 2
         x: 1
@@ -63,7 +63,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: redPlastronIdle_1
+    - name: nakedIdle_1
       rect:
         serializedVersion: 2
         x: 64
@@ -73,7 +73,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: redPlastronIdle_2
+    - name: nakedIdle_2
       rect:
         serializedVersion: 2
         x: 127
@@ -83,7 +83,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: redPlastronIdle_3
+    - name: nakedIdle_3
       rect:
         serializedVersion: 2
         x: 190

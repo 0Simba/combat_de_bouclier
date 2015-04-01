@@ -5,6 +5,7 @@ public class ProjectilesLauncher : MonoBehaviour {
 
 
     public GameObject GOspearProjectile;
+    public GameObject GOlegProjectile;
     public GameObject GOhelmetProjectile;
     public GameObject GOplastronProjectile;
     public GameObject GOshieldProjectile;
