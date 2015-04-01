@@ -14,6 +14,7 @@ public class MainGame : MonoBehaviour {
     static public GameObject respawnPoint;
     public GameObject _respawnPoint;
 	public MainPlayer[] players;
+	public HudController[] playersGUI;
 
     void Start () {
         playersScores   = _playersScores;
@@ -24,6 +25,7 @@ public class MainGame : MonoBehaviour {
 			if (GameDatas.playersInputIndex[i] != -1)
 			{
 				players[i].transform.gameObject.SetActive(true);
+				playersGUI[i].transform.gameObject.SetActive(true);
 			}
 		}
     }
