@@ -14,6 +14,10 @@ public class EquipmentController : MonoBehaviour {
     public int      lifes       = 3;
     public int      damageValue = 3;
 
+    private MainPlayer mainPlayer;
+
+
+
     public string getThrowObjectName () {
         for (int i = 0; i < itemsWeared.Length; i++) {
             if (itemsWeared[i]) {
@@ -57,7 +61,10 @@ public class EquipmentController : MonoBehaviour {
             PickItem(projectileScript.typeName);
         }
         else {
-            Damaged();
+            Projectile projectile = col.transform.GetComponent<Projectile>();
+            int launcherIndex     = projectile.launcherIndex;
+
+            if (launcherIndex == mainPlayer.playerIndex) Damaged();
         }
     }
 
