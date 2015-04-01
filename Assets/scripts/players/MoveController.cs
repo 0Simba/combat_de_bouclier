@@ -40,13 +40,15 @@ public class MoveController : MonoBehaviour {
 	private Vector2 _dashDirection = Vector2.zero;
 
 	private CharacterController2D _characterController;
-	private MainPlayer            mainPlayer;
 	public  Transform             playerDisplayContainer;
 
 	private TriggerTool _jumpTrigger;
 
+    private Mapping _gamepad;
+
+
 	void Start () {
-		mainPlayer = GetComponent<MainPlayer>();
+        _gamepad = GetComponent<Mapping>();
 		_characterController = GetComponent<CharacterController2D> ();
 		_jumpTrigger = new TriggerTool();
 	}
@@ -94,18 +96,25 @@ public class MoveController : MonoBehaviour {
 
 	void UpdateJump() {
 		_velY -= Time.deltaTime * (_jumping && _velY<0 ? boostedGravity : normalGravity);
-		_jumpTrigger.Update (DeviceManager.devices [mainPlayer.deviceIndex].RightTrigger);
-		if (_jumpTrigger.WasPressed && !_jumping) {
+        //Debug.Log(_gamepad.jump.IsPressed);
+        if (_gamepad.jump.WasPressed && !_jumping)
+        {
 			if(_grounded) {
 				_velY = jumpInitialVel;
 				_jumping = true;
 				_jumpButtonPressedFor = 0;
-			} else if (_characterController.collisionState.left && DeviceManager.devices [mainPlayer.deviceIndex].LeftStickX<0) {
+			} else if (
+                _characterController.collisionState.left &&
+                _gamepad.moveAxis.x < 0
+            ) {
 				_velX += boostXWallJump;
 				_velY = jumpInitialVel;
 				_jumping = true;
 				_jumpButtonPressedFor = 0;
-			} else if (_characterController.collisionState.right && DeviceManager.devices [mainPlayer.deviceIndex].LeftStickX>0) {
+			} else if (
+                _characterController.collisionState.right &&
+                _gamepad.moveAxis.x > 0
+            ) {
 				_velX -= boostXWallJump;
 				_velY = jumpInitialVel;
 				_jumping = true;
@@ -116,11 +125,12 @@ public class MoveController : MonoBehaviour {
 				_jumping = false;
 			}
 		}
-		if (_jumpTrigger.WasReleased && _jumping && (_velY > jumpFall)) {
+        if (_gamepad.jump.WasReleased && _jumping && (_velY > jumpFall))
+        {
 			_velY = jumpFall;
 
 		}
-		if (_jumpTrigger.IsPressed &&
+        if (_gamepad.jump.IsPressed &&
 		    _jumping &&
 		    //(_velY > jumpContinuousVel) &&
 		    _jumpButtonPressedFor < maxJumpDuration
@@ -131,9 +141,9 @@ public class MoveController : MonoBehaviour {
 	}
 
 	void Dash() {
-		InControl.InputDevice gamepad = DeviceManager.devices [mainPlayer.deviceIndex];
-		if (gamepad.LeftBumper.WasPressed || gamepad.RightBumper.WasPressed && _dashed < maxDash) {
-			_dashDirection = new Vector2(gamepad.LeftStickX,gamepad.LeftStickY);
+        if (_gamepad.dash.WasPressed && _dashed < maxDash)
+        {
+            _dashDirection = _gamepad.moveAxis;
 			_curentDashSpeed = dashSpeed;
 			_jumping = false;
 			_dashing = true;
@@ -171,7 +181,7 @@ public class MoveController : MonoBehaviour {
 	}
 
 	void moveX(float maxSpeed, float timeToMaxSpeed, float decX) {
-		float dx = DeviceManager.devices[mainPlayer.deviceIndex].LeftStickX;
+        float dx = _gamepad.moveAxis.x;
 		if (Mathf.Abs (dx * maxSpeed) >= Mathf.Abs (_velX)) {
 			_velX += maxSpeed / timeToMaxSpeed * Time.deltaTime * dx;
 			if (Mathf.Abs (_velX) > maxSpeed) {
