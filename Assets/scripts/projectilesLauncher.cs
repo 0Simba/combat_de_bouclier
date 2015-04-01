@@ -13,16 +13,20 @@ public class ProjectilesLauncher : MonoBehaviour {
     private Aim                 aim;
 
     private MainPlayer mainPlayer;
+	private TriggerTool _shootTrigger;
 
 	void Start () {
         mainPlayer          = GetComponent<MainPlayer>();
         equipmentController = transform.GetComponent<EquipmentController>();
         aim                 = transform.GetComponent<Aim>();
+		_shootTrigger = new TriggerTool();
     }
 
 
 	void Update () {
-        if (DeviceManager.devices[mainPlayer.deviceIndex].LeftBumper.WasPressed && aim.isIt) {
+		_shootTrigger.Update (DeviceManager.devices [mainPlayer.deviceIndex].LeftTrigger);
+		Debug.Log (_shootTrigger.WasPressed);
+		if (_shootTrigger.WasPressed && aim.isIt) {
             ThrowEquipmment();
         }
  	}

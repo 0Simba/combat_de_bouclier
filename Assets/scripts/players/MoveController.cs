@@ -42,9 +42,12 @@ public class MoveController : MonoBehaviour {
 	private CharacterController2D _characterController;
 	private MainPlayer            mainPlayer;
 
+	private TriggerTool _jumpTrigger;
+
 	void Start () {
 		mainPlayer = GetComponent<MainPlayer>();
 		_characterController = GetComponent<CharacterController2D> ();
+		_jumpTrigger = new TriggerTool();
 	}
 
 
@@ -79,18 +82,18 @@ public class MoveController : MonoBehaviour {
 
 	void UpdateJump() {
 		_velY -= Time.deltaTime * (_jumping && _velY<0 ? boostedGravity : normalGravity);
-		InControl.InputDevice gamepad = DeviceManager.devices [mainPlayer.deviceIndex];
-		if (gamepad.RightBumper.WasPressed && !_jumping) {
+		_jumpTrigger.Update (DeviceManager.devices [mainPlayer.deviceIndex].RightTrigger);
+		if (_jumpTrigger.WasPressed && !_jumping) {
 			if(_grounded) {
 				_velY = jumpInitialVel;
 				_jumping = true;
 				_jumpButtonPressedFor = 0;
-			} else if (_characterController.collisionState.left && gamepad.LeftStickX<0) {
+			} else if (_characterController.collisionState.left && DeviceManager.devices [mainPlayer.deviceIndex].LeftStickX<0) {
 				_velX += boostXWallJump;
 				_velY = jumpInitialVel;
 				_jumping = true;
 				_jumpButtonPressedFor = 0;
-			} else if (_characterController.collisionState.right && gamepad.LeftStickX>0) {
+			} else if (_characterController.collisionState.right && DeviceManager.devices [mainPlayer.deviceIndex].LeftStickX>0) {
 				_velX -= boostXWallJump;
 				_velY = jumpInitialVel;
 				_jumping = true;
@@ -101,11 +104,11 @@ public class MoveController : MonoBehaviour {
 				_jumping = false;
 			}
 		}
-
-		if (gamepad.RightBumper.WasReleased && _jumping && (_velY > jumpFall)) {
+		if (_jumpTrigger.WasReleased && _jumping && (_velY > jumpFall)) {
 			_velY = jumpFall;
+
 		}
-		if (gamepad.LeftBumper.IsPressed &&
+		if (_jumpTrigger.IsPressed &&
 		    _jumping &&
 		    //(_velY > jumpContinuousVel) &&
 		    _jumpButtonPressedFor < maxJumpDuration
@@ -117,12 +120,13 @@ public class MoveController : MonoBehaviour {
 
 	void Dash() {
 		InControl.InputDevice gamepad = DeviceManager.devices [mainPlayer.deviceIndex];
-		if (gamepad.LeftTrigger.WasPressed && _dashed < maxDash) {
+		if (gamepad.LeftBumper.WasPressed || gamepad.RightBumper.WasPressed && _dashed < maxDash) {
 			_dashDirection = new Vector2(gamepad.LeftStickX,gamepad.LeftStickY);
 			_curentDashSpeed = dashSpeed;
 			_jumping = false;
 			_dashing = true;
 			_dashed++;
+
 		}
 	}
 
