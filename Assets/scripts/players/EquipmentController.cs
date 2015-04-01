@@ -54,26 +54,25 @@ public class EquipmentController : MonoBehaviour {
     void OnCollisionEnter2D (Collision2D col) {
         string layerName = LayerMask.LayerToName(col.gameObject.layer);
 
-        if (layerName == "Projectiles") ProjectileCollision(col);
+        Debug.Log(layerName);
+
+        if      (layerName == "Projectiles")  ProjectileCollision(col);
+        else if (layerName == "Collectibles") PickItem(col);
     }
 
 
     void ProjectileCollision (Collision2D col) {
-        Projectile projectileScript = col.transform.GetComponent<Projectile>();
+        Projectile projectile = col.transform.GetComponent<Projectile>();
+        int launcherIndex     = projectile.launcherIndex;
 
-        if (projectileScript.pickable) {
-            PickItem(projectileScript.typeName);
-        }
-        else {
-            Projectile projectile = col.transform.GetComponent<Projectile>();
-            int launcherIndex     = projectile.launcherIndex;
-
-            if (launcherIndex != mainPlayer.playerIndex) Damaged();
-        }
+        if (launcherIndex != mainPlayer.playerIndex) Damaged();
     }
 
 
-    void PickItem (string name) {
+    void PickItem (Collision2D col) {
+        Projectile projectileScript = col.transform.GetComponent<Projectile>();
+
+        string name = projectileScript.typeName;
         int index = Array.IndexOf(itemsName, name);
         itemsWeared[index] = true;
         ShowItemByName(name);
@@ -81,7 +80,6 @@ public class EquipmentController : MonoBehaviour {
 
 
     void Damaged () {
-        Debug.Log("damaged");
         int damageCount = damageValue;
         for (int i = itemsWeared.Length - 1; i >= 0; i--) {
             if (itemsWeared[i]) {

@@ -4,7 +4,6 @@ using System.Collections;
 public class Projectile : MonoBehaviour {
 
     public int    force         = 5000;
-    public bool   pickable      = false;
     public string typeName      = "spear";
     public int    launcherIndex = 0;
 
@@ -43,24 +42,23 @@ public class Projectile : MonoBehaviour {
 
 
     void WallsCollision () {
-        pickable = true;
+        gameObject.layer = LayersIndex.collectibles;
         rigidbody.velocity = Vector2.zero;
     }
 
 
     void ProjectileCollision () {
-        pickable = true;
+        gameObject.layer = LayersIndex.collectibles;
         rigidbody.velocity = Vector2.zero;
     }
 
 
     void PlayersCollision (Collision2D col) {
-        if (pickable) {
+        if (gameObject.layer == LayersIndex.collectibles) {
             Destroy(gameObject);
         }
         else {
             rigidbody.AddForce(lastVelocity * -10);         // TODO use var
-            pickable = true;
         }
     }
 }

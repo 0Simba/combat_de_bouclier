@@ -31,8 +31,12 @@ public class MoveController : MonoBehaviour {
 	public float dashSpeed = 20;
 	public float dashDesc = 0.9f;
 	public float dashMinSpeed = 2;
-	private float _curentDashSpeed;
+	public float dashBounce = 0.5F;
+	public uint maxDash = 1;
+	private uint _dashed = 0;
+	private float _curentDashSpeed; 
 	private bool _dashing = false;
+	public float dashBounceAngle = 0.8f;
 	private Vector2 _dashDirection = Vector2.zero;
 
 	private CharacterController2D _characterController;
@@ -45,6 +49,7 @@ public class MoveController : MonoBehaviour {
 
 
 	void Update () {
+
 		if (!_dashing) {
 			if (_grounded) {
 				moveX (maxSpeed, timeToMaxSpeed, decX);
@@ -58,17 +63,18 @@ public class MoveController : MonoBehaviour {
 			UpdateDash();
 		}
 
-
 		_characterController.move (((_velX * Vector3.right) + (_velY * Vector3.up)) * Time.deltaTime);
 		if (_characterController.collisionState.below) {
 			_velY = 0;
 			_grounded = true;
+			if (!_dashing) {_dashed = 0;};
 		} else {
 			_grounded = false;
 		}
 		if (_characterController.collisionState.above) {
 			_velY = 0;
 		}
+
 	}
 
 	void UpdateJump() {
@@ -110,12 +116,15 @@ public class MoveController : MonoBehaviour {
 	}
 
 	void Dash() {
+		InControl.InputDevice gamepad = DeviceManager.devices [targetDevice];
+		if (gamepad.LeftTrigger.WasPressed && _dashed < maxDash) {
 		InControl.InputDevice gamepad = DeviceManager.devices [mainPlayer.deviceIndex];
 		if (gamepad.LeftTrigger.WasPressed) {
 			_dashDirection = new Vector2(gamepad.LeftStickX,gamepad.LeftStickY);
 			_curentDashSpeed = dashSpeed;
 			_jumping = false;
 			_dashing = true;
+			_dashed++;
 		}
 	}
 
@@ -125,9 +134,24 @@ public class MoveController : MonoBehaviour {
 		_curentDashSpeed *= dashDesc;
 		if (_curentDashSpeed < dashMinSpeed) {
 			_dashing = false;
+			if (_velY>0) {
+				_velY = 0;
+			}
 		}
 		if (_characterController.collisionFlags > 0) {
-			_dashing = false;
+			//We need to do a ligne cast to the center of the player in the direction of the element to check if we
+			//We are smashing into a wall or just following it
+			RaycastHit2D hit = Physics2D.Raycast(transform.position,_dashDirection,Mathf.Infinity,_characterController.platformMask);
+			if (hit.collider != null && 
+			    Vector2.Dot(hit.normal, _dashDirection.normalized) < -dashBounceAngle && 
+			    _curentDashSpeed < dashSpeed * dashDesc * dashDesc
+			) {
+
+				_dashing = false;
+				_velX = -_velX * dashBounce;
+				_velY = -_velY * dashBounce;
+			}
+
 		}
 	}
 
