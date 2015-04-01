@@ -15,10 +15,12 @@ public class EquipmentController : MonoBehaviour {
     public int      damageValue = 3;
 
     private MainPlayer mainPlayer;
+    private Respawn    respawn;
 
 
     void Start () {
         mainPlayer = GetComponent<MainPlayer>();
+        respawn    = GetComponent<Respawn>();
     }
 
 
@@ -96,7 +98,7 @@ public class EquipmentController : MonoBehaviour {
         lifes -= damageCount;
 
         if (lifes <= 0) {
-			gameObject.SetActive(false);
+            respawn.SetDie();
 		}
     }
 }
