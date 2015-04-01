@@ -26,11 +26,8 @@ public class DeviceManager : MonoBehaviour {
 		}
 
 		currentDevice = InputManager.ActiveDevice;
-
-
-
-
-		if (InputManager.Devices.Count < 4)
+		
+		/*if (InputManager.Devices.Count < 4)
 		{
 			if (inControlScript.customProfiles.Count == 0)
 			{
@@ -43,6 +40,6 @@ public class DeviceManager : MonoBehaviour {
 			{
 				inControlScript.customProfiles.Remove("0");
 			}
-		}
+		}*/
 	}
 }
