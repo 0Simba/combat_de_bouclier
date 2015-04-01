@@ -59,6 +59,7 @@ public class Projectile : MonoBehaviour {
         }
         else {
             rigidbody.AddForce(lastVelocity * -10);         // TODO use var
+            gameObject.layer = LayersIndex.collectibles;
         }
     }
 }
