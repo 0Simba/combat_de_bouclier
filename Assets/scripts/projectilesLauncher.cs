@@ -35,6 +35,7 @@ public class ProjectilesLauncher : MonoBehaviour {
 
 
     public void ThrowEquipmment () {
+        if (MainGame.ended) return;
         string objectName = equipmentController.getThrowObjectName();
         if (objectName != null) {
             GameObject projectile;

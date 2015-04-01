@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class MainGame : MonoBehaviour {
 
+    static public int   killForWin = 5;
+    static public bool  ended      = false;
+
     static public int[] playersScores;
 	[HideInInspector]
 	public int[] _playersScores;
