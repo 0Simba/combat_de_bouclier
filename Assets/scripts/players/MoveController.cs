@@ -144,10 +144,11 @@ public class MoveController : MonoBehaviour {
 			    Vector2.Dot(hit.normal, _dashDirection.normalized) < -dashBounceAngle && 
 			    _curentDashSpeed < dashSpeed * dashDesc * dashDesc
 			) {
-
 				_dashing = false;
+				Screenshake.main.ShakeDashInWall(new Vector3(_velX,_velY,0));
 				_velX = -_velX * dashBounce;
 				_velY = -_velY * dashBounce;
+
 			}
 
 		}
