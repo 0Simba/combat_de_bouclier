@@ -101,4 +101,12 @@ public class EquipmentController : MonoBehaviour {
             respawn.SetDie();
 		}
     }
+
+
+    public void Reset () {
+        for (int i = itemsWeared.Length - 1; i >= 0; i--) {
+            itemsWeared[i] = true;
+            ShowItemByName(itemsName[i]);
+        }
+    }
 }
