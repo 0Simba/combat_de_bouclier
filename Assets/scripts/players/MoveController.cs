@@ -116,10 +116,8 @@ public class MoveController : MonoBehaviour {
 	}
 
 	void Dash() {
-		InControl.InputDevice gamepad = DeviceManager.devices [targetDevice];
-		if (gamepad.LeftTrigger.WasPressed && _dashed < maxDash) {
 		InControl.InputDevice gamepad = DeviceManager.devices [mainPlayer.deviceIndex];
-		if (gamepad.LeftTrigger.WasPressed) {
+		if (gamepad.LeftTrigger.WasPressed && _dashed < maxDash) {
 			_dashDirection = new Vector2(gamepad.LeftStickX,gamepad.LeftStickY);
 			_curentDashSpeed = dashSpeed;
 			_jumping = false;
