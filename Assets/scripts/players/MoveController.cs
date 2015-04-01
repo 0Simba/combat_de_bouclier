@@ -41,6 +41,7 @@ public class MoveController : MonoBehaviour {
 
 	private CharacterController2D _characterController;
 	private MainPlayer            mainPlayer;
+	public  Transform             playerDisplayContainer;
 
 	void Start () {
 		mainPlayer = GetComponent<MainPlayer>();
@@ -79,12 +80,12 @@ public class MoveController : MonoBehaviour {
 	}
 
 	void SetDirection () {
-		float scale = transform.localScale.y;
+		float scale = playerDisplayContainer.transform.localScale.y;
 		if (_velX < 0) {
-			transform.localScale = new Vector3(-scale, scale, scale);
+			playerDisplayContainer.transform.localScale = new Vector3(-scale, scale, scale);
 		}
 		else {
-			transform.localScale = new Vector3(scale, scale, scale);
+			playerDisplayContainer.transform.localScale = new Vector3(scale, scale, scale);
 		}
 	}
 
