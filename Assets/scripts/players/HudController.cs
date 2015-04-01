@@ -4,6 +4,9 @@ using System.Collections;
 public class HudController : MonoBehaviour {
 
 	public EquipmentController playerEquipement;
+	public int                 playerIndex;
+	public GameObject[]        lifesSlot;
+
 	// Use this for initialization
 	void Start () {
 
@@ -25,6 +28,21 @@ public class HudController : MonoBehaviour {
 			if (child.activeSelf != status) {
 				child.SetActive(status);
 			}
+		}
+	}
+
+	public void AddKill(int nbKill) {
+		GameObject slot = lifesSlot[nbKill];
+
+		slot.SetActive(true);
+
+		if (nbKill == MainGame.killForWin) {
+			string color = (playerIndex == 0) ? "red"    :
+						   (playerIndex == 1) ? "green"  :
+						   (playerIndex == 2) ? "yellow" :
+						   "purple";
+
+			WinAnim.Launch(color);
 		}
 	}
 }

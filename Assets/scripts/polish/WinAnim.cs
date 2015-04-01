@@ -14,6 +14,7 @@ public class WinAnim : MonoBehaviour {
     private RectTransform textTransform;
     private float         startSize;
 
+    static private WinAnim       instance;
 
 
 	void Start () {
@@ -21,20 +22,21 @@ public class WinAnim : MonoBehaviour {
        textTransform = GetComponent<RectTransform>();
        elapsedTime   = duration;
        startSize     = text.fontSize;
-
+       instance      = this;
        Hide();
 //       Launch("red");
     }
 
 
-    void Launch (string winnerColor) {
-        elapsedTime = 0;
-        text.text = "Player " + winnerColor + " win !";
+    static public void Launch (string winnerColor) {
+        instance.elapsedTime = 0;
+        instance.text.text   = "Player " + winnerColor + " win !";
+        MainGame.ended       = true;
     }
 
 
-    void Hide () {
-        text.text = "";
+    static public void Hide () {
+        instance.text.text = "";
     }
 
 

@@ -10,6 +10,7 @@ public class EquipmentController : MonoBehaviour {
     public GameObject plastronRef;
     public GameObject legRef;
     public GameObject penisRef;
+    public HudController hudController;
 
     private string[] itemsName   = new string[4] {"shield", "helmet", "plastron", "leg"};
     public bool[]   itemsWeared = new bool[4]   {true    , true    , true      , true};
@@ -109,7 +110,8 @@ public class EquipmentController : MonoBehaviour {
             respawn.SetDie();
 			MainGame.playersScores[launcherIndex] += 1;
             Sounds.Play("kill");
-		}
+            HudControllerManager.AddKill(launcherIndex);
+        }
         else {
             Sounds.Play("hit");
         }
