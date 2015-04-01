@@ -41,6 +41,7 @@ public class MoveController : MonoBehaviour {
 
 	private CharacterController2D _characterController;
 	private MainPlayer            mainPlayer;
+	public  Transform             playerDisplayContainer;
 
 	private TriggerTool _jumpTrigger;
 
@@ -78,6 +79,17 @@ public class MoveController : MonoBehaviour {
 			_velY = 0;
 		}
 
+		SetDirection();
+	}
+
+	void SetDirection () {
+		float scale = playerDisplayContainer.transform.localScale.y;
+		if (_velX < 0) {
+			playerDisplayContainer.transform.localScale = new Vector3(-scale, scale, scale);
+		}
+		else {
+			playerDisplayContainer.transform.localScale = new Vector3(scale, scale, scale);
+		}
 	}
 
 	void UpdateJump() {

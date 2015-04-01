@@ -15,10 +15,12 @@ public class EquipmentController : MonoBehaviour {
     public int      damageValue = 3;
 
     private MainPlayer mainPlayer;
+    private Respawn    respawn;
 
 
     void Start () {
         mainPlayer = GetComponent<MainPlayer>();
+        respawn    = GetComponent<Respawn>();
     }
 
 
@@ -54,8 +56,6 @@ public class EquipmentController : MonoBehaviour {
     void OnCollisionEnter2D (Collision2D col) {
         string layerName = LayerMask.LayerToName(col.gameObject.layer);
 
-        Debug.Log(layerName);
-
         if      (layerName == "Projectiles")  ProjectileCollision(col);
         else if (layerName == "Collectibles") PickItem(col);
     }
@@ -65,7 +65,7 @@ public class EquipmentController : MonoBehaviour {
         Projectile projectile = col.transform.GetComponent<Projectile>();
         int launcherIndex     = projectile.launcherIndex;
 
-        if (launcherIndex != mainPlayer.playerIndex) Damaged();
+        if (launcherIndex != mainPlayer.playerIndex) Damaged(launcherIndex);
     }
 
 
@@ -79,24 +79,32 @@ public class EquipmentController : MonoBehaviour {
     }
 
 
-    void Damaged () {
+    void Damaged (int launcherIndex) {
         int damageCount = damageValue;
-        for (int i = itemsWeared.Length - 1; i >= 0; i--) {
+        for (int i = 0; i < itemsWeared.Length && damageCount > 0; i++) {
             if (itemsWeared[i]) {
 
                 itemsWeared[i] = false;
                 damageCount--;
                 HideItemsByName(itemsName[i]);
                 // TODO coder layer perte des items
-                if (damageCount == 0) break;
-
             }
         }
 
         lifes -= damageCount;
 
         if (lifes <= 0) {
-			gameObject.SetActive(false);
+            respawn.SetDie();
+			MainGame.playersScores[launcherIndex] += 1;
 		}
+    }
+
+
+    public void Reset () {
+        for (int i = itemsWeared.Length - 1; i >= 0; i--) {
+            itemsWeared[i] = true;
+            ShowItemByName(itemsName[i]);
+            lifes = 3;
+        }
     }
 }

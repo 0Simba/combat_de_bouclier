@@ -25,7 +25,6 @@ public class ProjectilesLauncher : MonoBehaviour {
 
 	void Update () {
 		_shootTrigger.Update (DeviceManager.devices [mainPlayer.deviceIndex].LeftTrigger);
-		Debug.Log (_shootTrigger.WasPressed);
 		if (_shootTrigger.WasPressed && aim.isIt) {
             ThrowEquipmment();
         }
