@@ -33,7 +33,6 @@ public class EquipmentController : MonoBehaviour {
             if (itemsWeared[i]) {
                 itemsWeared[i] = false;
                 HideItemsByName(itemsName[i]);
-                Debug.Log(itemsName[i]);
                 return itemsName[i];
             }
         }
@@ -66,6 +65,8 @@ public class EquipmentController : MonoBehaviour {
 
     void OnCollisionEnter2D (Collision2D col) {
         string layerName = LayerMask.LayerToName(col.gameObject.layer);
+
+        Debug.Log(layerName); //remove
 
         if      (layerName == "Projectiles")  ProjectileCollision(col);
         else if (layerName == "Collectibles") PickItem(col);

@@ -9,7 +9,8 @@ public class Projectile : MonoBehaviour {
 
     private Rigidbody2D rigidbody;
     private Vector2     lastVelocity;
-
+    private float       ghostRestTime = -1;
+    private float       timeGhost     = 0.3f;
 
 
     void Awake () {
@@ -19,6 +20,23 @@ public class Projectile : MonoBehaviour {
 
     void Update () {
         lastVelocity = rigidbody.velocity;
+
+        if (ghostRestTime > 0) ElapseGhost();
+    }
+
+
+    void ElapseGhost () {
+        ghostRestTime -= Time.deltaTime;
+
+        if (ghostRestTime <= 0) {
+            gameObject.layer = LayersIndex.collectibles;
+        }
+    }
+
+
+    void SetGhost () {
+        gameObject.layer = LayersIndex.ghosts;
+        ghostRestTime    = timeGhost;
     }
 
 
@@ -54,12 +72,13 @@ public class Projectile : MonoBehaviour {
 
 
     void PlayersCollision (Collision2D col) {
+
         if (gameObject.layer == LayersIndex.collectibles) {
             Destroy(gameObject);
         }
         else {
             rigidbody.AddForce(lastVelocity * -10);         // TODO use var
-            gameObject.layer = LayersIndex.collectibles;
+            SetGhost();
         }
     }
 }

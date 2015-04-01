@@ -11,7 +11,6 @@ public class OneAxisMapping : Mapping {
         jump = new ButtonInput();
         dash = new ButtonInput();
         projectileLauncher = GetComponent<ProjectilesLauncher>();
-        Debug.Log(projectileLauncher);
     }
 
 	// Update is called once per frame
