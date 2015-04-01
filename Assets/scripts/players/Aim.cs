@@ -8,7 +8,10 @@ public class Aim : MonoBehaviour {
     public bool       isIt           = false;
     public GameObject aimSprite;
 
+    private MainPlayer mainPlayer;
+
     void Start () {
+        mainPlayer = GetComponent<MainPlayer>();
         aimSprite.SetActive(false);
     }
 
@@ -20,7 +23,7 @@ public class Aim : MonoBehaviour {
 
 
     void ApplyRotation () {
-        direction            = new Vector2(DeviceManager.currentDevice.RightStickX, DeviceManager.currentDevice.RightStickY);
+        direction            = new Vector2(DeviceManager.devices[mainPlayer.deviceIndex].RightStickX, DeviceManager.devices[mainPlayer.deviceIndex].RightStickY);
         float angle          = Mathf.Atan2(direction.x, direction.y) / Mathf.PI * -180;
         Quaternion rotation  = Quaternion.identity;
         rotation.eulerAngles = new Vector3(0, 0, angle);
