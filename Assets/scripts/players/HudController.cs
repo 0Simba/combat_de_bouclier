@@ -32,17 +32,8 @@ public class HudController : MonoBehaviour {
 	}
 
 	public void AddKill(int nbKill) {
-		GameObject slot = lifesSlot[nbKill];
+		GameObject slot = lifesSlot[nbKill - 1];
 
 		slot.SetActive(true);
-
-		if (nbKill == MainGame.killForWin) {
-			string color = (playerIndex == 0) ? "red"    :
-						   (playerIndex == 1) ? "green"  :
-						   (playerIndex == 2) ? "yellow" :
-						   "purple";
-
-			WinAnim.Launch(color);
-		}
 	}
 }

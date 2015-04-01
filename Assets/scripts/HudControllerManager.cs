@@ -15,7 +15,16 @@ public class HudControllerManager : MonoBehaviour {
 
     static public void AddKill (int playerIndex) {
         int score = MainGame.playersScores[playerIndex];
-        Debug.Log(playerIndex + " : " + score);
         instance.hudControllers[playerIndex].AddKill(score);
+
+        if (score == MainGame.killForWin) {
+            string color = (playerIndex == 0) ? "red"    :
+                           (playerIndex == 1) ? "green"  :
+                           (playerIndex == 2) ? "yellow" :
+                           "purple";
+
+            WinAnim.Launch(color);
+        }
+
     }
 }
