@@ -64,6 +64,7 @@ public class Projectile : MonoBehaviour {
 
 
     void BecameCollectible () {
+        Debug.Log("Pas cool");
         gameObject.layer = LayersIndex.collectibles;
         rigidbody.velocity = Vector2.zero;
         particles.Play();
@@ -71,7 +72,7 @@ public class Projectile : MonoBehaviour {
 
 
     void PlayersCollision (Collision2D col) {
-
+        Debug.Log("Collision player");
         if (gameObject.layer == LayersIndex.collectibles) {
             Destroy(gameObject);
         }
