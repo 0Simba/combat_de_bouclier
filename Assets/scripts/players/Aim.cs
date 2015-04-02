@@ -9,16 +9,27 @@ public class Aim : MonoBehaviour {
     public GameObject aimSprite;
 
     private Mapping _gamepad;
+	private Vector2 lastDirection;
 
     void Start () {
         _gamepad = GetComponent<Mapping>();
         aimSprite.SetActive(false);
+		lastDirection = new Vector2 (1, 0);
     }
 
 
 	void Update () {
         ApplyRotation();
         ApplyStateAndRender();
+
+		if (isIt)
+		{
+			lastDirection = direction;
+		}
+		if (!isIt)
+		{
+			direction = lastDirection;
+		}
     }
 
 
