@@ -106,13 +106,16 @@ public class EquipmentController : MonoBehaviour {
 
         lifes -= damageCount;
 
+
         if (lifes <= 0) {
+            GetComponent<DeathMask>().CreateMask();
             respawn.SetDie();
 			MainGame.playersScores[launcherIndex] += 1;
             Sounds.Play("kill");
             HudControllerManager.AddKill(launcherIndex);
             TimeFreeze.SlowMo();
             Debug.Log("heheheheh");
+            
         }
         else {
             TimeFreeze.Freeze();
