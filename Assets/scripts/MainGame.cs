@@ -41,13 +41,18 @@ public class MainGame : MonoBehaviour {
 		{
 			if (playersScores[i] >= scoreToWin)
 			{
-				WinGame();
+				//WinGame();
 			}
 		}
+		if (ended)
+		{
+			StartCoroutine("goBackToMenu");
+		}
 	}
-
-	public void WinGame()
+	
+	IEnumerator goBackToMenu()
 	{
-		Debug.Log ("Fini");
+		yield return new WaitForSeconds(5);
+		Application.LoadLevel("DeviceSelection");
 	}
 }
