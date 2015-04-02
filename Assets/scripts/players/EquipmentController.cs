@@ -11,7 +11,6 @@ public class EquipmentController : MonoBehaviour {
     public GameObject legRef;
     public GameObject penisRef;
     public HudController hudController;
-    public bool          isDead = false;
 
     private string[] itemsName   = new string[4] {"shield", "helmet", "plastron", "leg"};
     public bool[]   itemsWeared = new bool[4]   {true    , true    , true      , true};
@@ -115,7 +114,7 @@ public class EquipmentController : MonoBehaviour {
             Sounds.Play("kill");
             HudControllerManager.AddKill(launcherIndex);
             TimeFreeze.SlowMo();
-            isDead = true;
+            transform.position = Vector3.right * 100;
         }
         else {
             TimeFreeze.Freeze();
@@ -125,7 +124,6 @@ public class EquipmentController : MonoBehaviour {
 
 
     public void Reset () {
-        isDead = false;
         for (int i = itemsWeared.Length - 1; i >= 0; i--) {
             itemsWeared[i] = true;
             ShowItemByName(itemsName[i]);
