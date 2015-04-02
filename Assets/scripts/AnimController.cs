@@ -10,9 +10,15 @@ public class AnimController : MonoBehaviour {
     public EquipmentController equipmentController;
 
 
-    private int lastState = 0;
+    private int  lastState = 0;
+    private bool keepFrame = false;
 
 	void Update () {
+        if (keepFrame) {
+            keepFrame = false;
+            return;
+        }
+
         int state;
 
         if      (equipmentController.isDead)          state = 6; //death
@@ -22,10 +28,11 @@ public class AnimController : MonoBehaviour {
         else if (Mathf.Abs(moveController._velX) > 1) state = 2; //run
         else    state = 1; //idle
 
-/*
-        if (state == 5) Debug.Log("throw...");
-        else if (state == 6) Debug.Log("dead...");
-*/
+
+        if (state == 5) {
+            keepFrame = true;
+        }
+
         if (lastState != state) {
             for (int i = 0; i < animator.Length; i++) {
                 animator[i].SetInteger("STATE", state);
