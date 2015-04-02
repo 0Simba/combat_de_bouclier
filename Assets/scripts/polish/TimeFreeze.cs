@@ -6,6 +6,7 @@ public class TimeFreeze : MonoBehaviour
     public float freezeDuration = 0.1f;
     public static void Freeze()
     {
+        return;
         TimeFreeze._instance.StartCoroutine(FreezeCoroutine(TimeFreeze._instance.freezeDuration, 0.00001f));
     }
 
@@ -13,6 +14,7 @@ public class TimeFreeze : MonoBehaviour
     public float slowMoScale = 0.25f;
     public static void SlowMo(float d = 0, float t=0)
     {
+        return;
         if (t == 0)
         {
             t  = _instance.slowMoScale;

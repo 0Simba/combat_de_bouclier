@@ -21,8 +21,8 @@ public class AnimController : MonoBehaviour {
 
         int state;
 
-        if      (equipmentController.isDead)          state = 6; //death
-        else if (projectilesLauncher.isLaunching)     state = 5; //throw
+        //if      (equipmentController.isDead)          state = 6; //death
+        if (projectilesLauncher.isLaunching)     state = 5; //throw
         else if (moveController._dashing)             state = 4; //dash
         else if (Mathf.Abs(moveController._velY) > 1) state = 3; //jump
         else if (Mathf.Abs(moveController._velX) > 1) state = 2; //run
@@ -32,6 +32,11 @@ public class AnimController : MonoBehaviour {
         if (state == 5) {
             keepFrame = true;
         }
+
+        if (state == 6) {
+            Debug.Log("dans le die");
+        }
+
 
         if (lastState != state) {
             for (int i = 0; i < animator.Length; i++) {

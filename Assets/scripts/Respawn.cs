@@ -11,7 +11,7 @@ public class Respawn : MonoBehaviour {
 
     public void SetDie () {
         equipmentController = transform.GetComponent<EquipmentController>();
-        transform.position = Vector3.right * 100;
+        //transform.position = Vector3.right * 100;
         restTime   = MainGame.respawnDuration;
         respawning = true;
     }
