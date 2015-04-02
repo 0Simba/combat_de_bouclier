@@ -52,6 +52,7 @@ public class MainGame : MonoBehaviour {
 	
 	IEnumerator goBackToMenu()
 	{
+		ended = false;
 		yield return new WaitForSeconds(5);
 		Application.LoadLevel("DeviceSelection");
 	}
