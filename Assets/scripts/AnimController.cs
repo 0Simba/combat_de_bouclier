@@ -22,6 +22,8 @@ public class AnimController : MonoBehaviour {
         else if (projectilesLauncher.isLaunching)     state = 5; // throw
         else    state = 1; //idle
 
+
+        Debug.Log(state);
         animator.SetInteger("STATE", state);
     }
 
