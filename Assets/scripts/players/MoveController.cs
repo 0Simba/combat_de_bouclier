@@ -42,7 +42,7 @@ public class MoveController : MonoBehaviour {
 	private CharacterController2D _characterController;
 	public  Transform             playerDisplayContainer;
 
-	private TriggerTool _jumpTrigger;
+	
 
     private Mapping _gamepad;
 
@@ -50,7 +50,7 @@ public class MoveController : MonoBehaviour {
 	void Start () {
         _gamepad = GetComponent<Mapping>();
 		_characterController = GetComponent<CharacterController2D> ();
-		_jumpTrigger = new TriggerTool();
+
 	}
 
 

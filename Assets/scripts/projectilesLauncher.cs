@@ -27,13 +27,11 @@ public class ProjectilesLauncher : MonoBehaviour {
 
 
 	void Update () {
-/*        Debug.Log("--"+ _gamepad.shoot.WasPressed);
-        if (_gamepad.shoot.WasPressed && aim.isIt)
+        if (_gamepad.shoot.WasPressed)
         {
-            Debug.Log("heheheh");
             ThrowEquipmment();
         }
- */	}
+    }
 
 
     public void ThrowEquipmment () {
