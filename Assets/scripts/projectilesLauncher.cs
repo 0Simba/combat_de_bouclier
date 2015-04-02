@@ -10,6 +10,8 @@ public class ProjectilesLauncher : MonoBehaviour {
     public GameObject GOplastronProjectile;
     public GameObject GOshieldProjectile;
 
+    public bool       isLaunching = false;
+
     private EquipmentController equipmentController;
     private Aim                 aim;
 
