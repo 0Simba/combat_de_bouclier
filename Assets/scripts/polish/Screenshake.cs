@@ -23,9 +23,6 @@ public class Screenshake : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.A)) {
-			TimeFreeze.Freeze(1);
-		}
 		transform.position = _origin + _shakeDirection;
 		_shakeDirection *= -_shakeSlowDown;
 	}

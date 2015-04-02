@@ -111,8 +111,11 @@ public class EquipmentController : MonoBehaviour {
 			MainGame.playersScores[launcherIndex] += 1;
             Sounds.Play("kill");
             HudControllerManager.AddKill(launcherIndex);
+            TimeFreeze.SlowMo();
+            Debug.Log("heheheheh");
         }
         else {
+            TimeFreeze.Freeze();
             Sounds.Play("hit");
         }
     }
