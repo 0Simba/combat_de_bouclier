@@ -6,7 +6,7 @@ using InControl;
 
 public class MenuDevice : MonoBehaviour {
 
-	public string sceneToLoad;
+	public string[] scenesToLoad;
 	public GameObject[] playersUI;
 	private bool[] playersOk;
 	public Image startImage;
@@ -80,6 +80,6 @@ public class MenuDevice : MonoBehaviour {
 
 	void LoadScene()
 	{
-		Application.LoadLevel (sceneToLoad);
+		Application.LoadLevel (scenesToLoad[Random.Range(0, scenesToLoad.Length)]);
 	}
 }
