@@ -6,22 +6,25 @@ public class Credits : MonoBehaviour {
 
 	public float speed;
 	public float maxX;
+	private Transform creditsText;
+	private float creditsX;
 
 	// Use this for initialization
 	void Start () {
-	
+		creditsText = GetComponentInChildren<Text> ().transform;
+		creditsX = creditsText.localPosition.x;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		GetComponentInChildren<Text> ().transform.position -= new Vector3(speed, 0f, 0f);
-		if (GetComponentInChildren<Text> ().transform.localPosition.x < -maxX)
+		creditsText.position -= new Vector3(speed, 0f, 0f);
+		if (creditsText.localPosition.x < -maxX)
 		{
-			GetComponentInChildren<Text> ().transform.localPosition = new Vector3(0, 0, 0);
+			creditsText.localPosition = new Vector3(creditsX + 800, 0, 0);
 		}
-		if (GetComponentInChildren<Text> ().transform.localPosition.x > 0)
+		if (creditsText.localPosition.x > creditsX + 800)
 		{
-			GetComponentInChildren<Text> ().transform.localPosition = new Vector3(0, 0, 0);
+			creditsText.localPosition = new Vector3(creditsX + 800, 0, 0);
 		}
 	}
 }
