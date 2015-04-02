@@ -12,9 +12,12 @@ public class Projectile : MonoBehaviour {
     private float       ghostRestTime = -1;
     private float       timeGhost     = 0.3f;
 
+    private ParticleSystem particles;
 
     void Awake () {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody        = GetComponent<Rigidbody2D>();
+        GameObject child = transform.GetChild(0).gameObject; // TODO it's unsafe
+        particles        = child.GetComponent<ParticleSystem>();
     }
 
 
@@ -29,7 +32,7 @@ public class Projectile : MonoBehaviour {
         ghostRestTime -= Time.deltaTime;
 
         if (ghostRestTime <= 0) {
-            gameObject.layer = LayersIndex.collectibles;
+            BecameCollectible();
         }
     }
 
@@ -52,22 +55,18 @@ public class Projectile : MonoBehaviour {
     void OnCollisionEnter2D (Collision2D col) {
         string layerName = LayerMask.LayerToName(col.gameObject.layer);
 
-        if      (layerName == "Walls")       WallsCollision();
+        if      (layerName == "Walls")       BecameCollectible();
         else if (layerName == "Players")     PlayersCollision(col);
-        else if (layerName == "Projectiles") ProjectileCollision();
+        else if (layerName == "Projectiles") BecameCollectible();
         else if (layerName != "Default")     Debug.Log("Pas de collision entre les projectiles et le layer : " + layerName);
     }
 
 
-    void WallsCollision () {
+
+    void BecameCollectible () {
         gameObject.layer = LayersIndex.collectibles;
         rigidbody.velocity = Vector2.zero;
-    }
-
-
-    void ProjectileCollision () {
-        gameObject.layer = LayersIndex.collectibles;
-        rigidbody.velocity = Vector2.zero;
+        particles.Play();
     }
 
 

@@ -11,7 +11,7 @@ public class MoveController : MonoBehaviour {
 	public float maxSpeedInAir = 3;
 	public float timeToMaxSpeedInAir = 02;
 
-	private float _velX = 0;
+	public float _velX = 0;
 
 	public float normalGravity = 10;
 	public float boostedGravity = 20;
@@ -24,7 +24,7 @@ public class MoveController : MonoBehaviour {
 	public float maxJumpDuration = 0;
 
 	private float _jumpButtonPressedFor = 0;
-	private float _velY = 0;
+	public float _velY = 0;
 	private bool _jumping = false;
 	private bool _grounded = false;
 
@@ -35,7 +35,7 @@ public class MoveController : MonoBehaviour {
 	public uint maxDash = 1;
 	private uint _dashed = 0;
 	private float _curentDashSpeed; 
-	private bool _dashing = false;
+	public bool _dashing = false;
 	public float dashBounceAngle = 0.8f;
 	private Vector2 _dashDirection = Vector2.zero;
 

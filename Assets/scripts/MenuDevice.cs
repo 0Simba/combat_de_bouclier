@@ -57,7 +57,7 @@ public class MenuDevice : MonoBehaviour {
 			if ((playersOk[i] == true)&&(InputManager.Devices[i].MenuWasPressed))
 			{
 				WriteGameDatas();
-				Debug.Log(testData[0] + " " + testData[1] + " " + testData[2] + " " + testData[3]);
+				//Debug.Log(testData[0] + " " + testData[1] + " " + testData[2] + " " + testData[3]);
 				LoadScene();
 			}
 		}
