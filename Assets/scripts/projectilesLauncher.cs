@@ -27,9 +27,11 @@ public class ProjectilesLauncher : MonoBehaviour {
 
 
 	void Update () {
+        isLaunching = false;
         if (_gamepad.shoot.WasPressed)
         {
             ThrowEquipmment();
+            isLaunching = true;
         }
     }
 
