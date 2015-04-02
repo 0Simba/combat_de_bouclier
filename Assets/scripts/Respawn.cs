@@ -23,7 +23,7 @@ public class Respawn : MonoBehaviour {
 
             if (restTime <= 0) {
                 respawning = false;
-                transform.position = MainGame.respawnPoint.transform.position;
+                transform.position = SpawnPoints.GetSpawnPoint();
                 equipmentController.Reset();
             }
         }
