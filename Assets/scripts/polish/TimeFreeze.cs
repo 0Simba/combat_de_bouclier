@@ -28,11 +28,13 @@ public class TimeFreeze : MonoBehaviour
 
     static IEnumerator FreezeCoroutine(float duration, float timeScale = 0.25f)
     {
+        float oldFixedDelta = Time.fixedDeltaTime;
+        Debug.Log(oldFixedDelta);
         Time.timeScale = timeScale;
-        Debug.Log("youhou" + duration + " " + timeScale);
+        Time.fixedDeltaTime = oldFixedDelta * timeScale;
         yield return new WaitForSeconds(duration * timeScale);
-        Debug.Log("youhaaaaou");
         Time.timeScale = 1;
+        Time.fixedDeltaTime = oldFixedDelta;
     }
 
     
