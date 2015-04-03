@@ -36,14 +36,16 @@ public class TimeFreeze : MonoBehaviour
         Time.fixedDeltaTime = oldFixedDelta * timeScale;
         yield return new WaitForSeconds(duration * timeScale);
         Time.timeScale = 1;
-        Time.fixedDeltaTime = oldFixedDelta;
+        Time.fixedDeltaTime = NormalTimeFrame;
     }
 
-    
 
+
+    private static float NormalTimeFrame = 0;
     private static TimeFreeze _instance;
     void Start()
     {
+        NormalTimeFrame = Time.fixedDeltaTime;
         TimeFreeze._instance = this;
     }
 }
