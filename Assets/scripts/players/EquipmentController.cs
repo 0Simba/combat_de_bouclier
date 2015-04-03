@@ -11,6 +11,7 @@ public class EquipmentController : MonoBehaviour {
     public GameObject legRef;
     public GameObject penisRef;
     public HudController hudController;
+    public GameObject PrefabExplosion;
 
     private string[] itemsName   = new string[4] {"shield", "helmet", "plastron", "leg"};
     public bool[]   itemsWeared = new bool[4]   {true    , true    , true      , true};
@@ -109,12 +110,15 @@ public class EquipmentController : MonoBehaviour {
 
         if (lifes <= 0) {
             GetComponent<DeathMask>().CreateMask();
+            UnityEngine.Object particles = GameObject.Instantiate(PrefabExplosion, transform.position, Quaternion.identity);
+            Destroy(particles, 10);
             respawn.SetDie();
 			MainGame.playersScores[launcherIndex] += 1;
             Sounds.Play("kill");
             HudControllerManager.AddKill(launcherIndex);
             TimeFreeze.SlowMo();
             transform.position = Vector3.right * 100;
+            
         }
         else {
             TimeFreeze.Freeze();
