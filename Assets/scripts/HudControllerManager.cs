@@ -19,9 +19,9 @@ public class HudControllerManager : MonoBehaviour {
 
         if (score == MainGame.killForWin) {
             string color = (playerIndex == 0) ? "red"    :
-                           (playerIndex == 1) ? "green"  :
-                           (playerIndex == 2) ? "yellow" :
-                           "purple";
+                           (playerIndex == 1) ? "blue"  :
+                           (playerIndex == 2) ? "green" :
+                           "yellow";
 
             WinAnim.Launch(color);
         }
