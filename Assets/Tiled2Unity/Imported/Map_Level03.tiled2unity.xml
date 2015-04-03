@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 03/04/2015 09:18:09-->
+<!--Last exported: 03/04/2015 09:58:49-->
 <Tiled2Unity version="0.9.9.4">
   <AssignMaterial mesh="mesh_[00]_[00]" material="Tilde placement" sortingLayerName="" sortingOrder="0" />
   <Prefab name="Map_Level03" numTilesWide="29" numTilesHigh="16" tileWidth="40" tileHeight="40" exportScale="0.025">
