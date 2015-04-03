@@ -5,6 +5,7 @@ public class Respawn : MonoBehaviour {
 
     private float restTime   = -1;
     private bool  respawning = false;
+    public GameObject prefabAnim;
 
     private EquipmentController equipmentController;
 
@@ -24,6 +25,8 @@ public class Respawn : MonoBehaviour {
             if (restTime <= 0) {
                 respawning = false;
                 transform.position = SpawnPoints.GetSpawnPoint();
+                UnityEngine.Object particles = GameObject.Instantiate(prefabAnim, transform.position, Quaternion.identity);
+                Destroy(particles, 10);
                 equipmentController.Reset();
             }
         }
